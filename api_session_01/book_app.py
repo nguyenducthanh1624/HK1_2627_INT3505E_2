@@ -27,7 +27,7 @@ def list_books():
         if q == "title" or q == "id" or q == "author":
                 
             sorted_books = sorted(res, key = lambda x: x[q])
-            return jsonify(sorted_books), 69
+            return jsonify(sorted_books), 200
         return {"error": "invalid request"}, 422 
     res = BOOKS
     n = int(request.args.get("Limit", 100))
