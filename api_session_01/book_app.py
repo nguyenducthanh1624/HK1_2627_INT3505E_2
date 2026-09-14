@@ -1,15 +1,38 @@
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 _next = 1
-BOOKS = [{"id": 1, "title":"Clean Code", "author":"R. Martin"}]
+BOOKS = [{"id": 1, "title":"Clean Code", "author":"R. Martin"},
+         
+         ]
 
 def find(bid):
     return next((b for b in BOOKS if b["id"] == bid), None)
 
 @app.route("/books", methods = ["GET"])
 def list_books():
+    query = request.args.get("q")
+    sort_by = request.args.get("sort")
+    res = []
+    if query :
+        
+        for b in BOOKS:
+            if b["id"] == q or b["title"] == q or b["author"] == q:
+            
+                res.append(b)
+        #if len(res) > 0: return jsonify(res), 200
+        return {"error":"not found"},404
+
+    if sort_by:
+        q = request.args.get('sort')
+        if q == "title" or q == "id" or q == "author":
+                
+            sorted_books = sorted(res, key = lambda x: x[q])
+            return jsonify(sorted_books), 69
+        return {"error": "invalid request"}, 422 
+    res = BOOKS
     n = int(request.args.get("Limit", 100))
-    return jsonify(BOOKS[:n]), 200
+    return jsonify(res[:n]), 200
+
 
 @app.route("/books/<int:bid>" , methods = ["GET"])
 def get_book(bid):
@@ -39,32 +62,6 @@ def modify_book(bid):
         return jsonify(book), 200
     BOOKS.remove(book)
     return "", 204
-
-#Bài 6 mở rộng
-@app.route("/books/search", methods = ["GET"])
-def search_book():
-    q = request.args.get('q')
-    #return all books with q in author, title, id
-    #or return 404 if nothing is found
-    res = []
-    for b in BOOKS:
-        if b["id"] == q or b["title"] == q or b["author"] == q:
-            #return jsonify(b), 200
-            res.append(b)
-    if len(res) > 0: return jsonify(res), 200
-    return {"error":"nothing is found"},400
-
-#Bài 6 mở rộng
-@app.route("/books/sort",methods = ["GET"])
-def sort_by():
-    q = request.args.get('q')
-    #if q is title, id, author, then sort and return
-    #else return error invalid request?
-    if q == "title" or q == "id" or q == "author":
-        #sort ?
-        sorted_books= sorted(BOOKS, key = lambda x: x[q])
-        return jsonify(sorted_books), 200
-    return {"error": "invalid request"}, 400 
 
 if __name__ == "__main__":
     app.run(host = "localhost", port=5000, debug = True)
