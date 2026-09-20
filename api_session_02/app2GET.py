@@ -1,18 +1,11 @@
-from flask import Flask, request, make_response, jsonify, g
-import sqlite3
+from flask import Flask, request, make_response, jsonify
 app = Flask(__name__)
 BOOKS = []
 _next_id = 1
 
 DEFAULT_SIZE, MAX_SIZE = 20,100
 
-BOOKDB = "books.db"
 
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect(BOOKDB)
-    return db
 
 @app.post("/books")
 def create_books():
@@ -36,12 +29,11 @@ def create_books():
 @app.get("/books")
 def list_books():
     try:
-        page = int(request.args.get("page", 1))
+        page = int( request.args.get("page", 1))
         size = int(request.args.get("size", DEFAULT_SIZE))
 
     except ValueError:
         return jsonify(error = "page and size must be int"), 400
-    
     page = max(page, 1); size = max(min(size ,MAX_SIZE), 1)
     flt = BOOKS
     a = request.args.get("author")

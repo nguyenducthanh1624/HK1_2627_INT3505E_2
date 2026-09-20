@@ -20,10 +20,8 @@ def create_books():
     a = (p.get("author") or "").strip()
     if not t or not a:
         return jsonify(error = "title and author required"), 422
-    
     book = {"id" : _next_id, "title": t, "author":a}
     BOOKS.append(book); _next_id+=1
-
     resp = make_response(jsonify(book),201)
     resp.headers["Locations"] = f"/books/{book['id']}"
     return resp
@@ -33,13 +31,11 @@ def fetch(bid):
     i = next((k for k,b in enumerate(BOOKS) if b["id"] == bid), None)
     if i is None: return jsonify(error="not found"), 404
     resp = make_response(jsonify(BOOKS[i]), 200)
-
     resp.headers["Cache-Control"] = "max-age=60";return resp
 
 @app.put("/books/<int:bid>")
 def put(bid):
     i = next((k for k,b in enumerate(BOOKS) if b["id"] == bid), None)
-
     if i is None:
         return jsonify(error="not found"), 404
     p = request.get_json(silent=True) or {}
@@ -47,7 +43,6 @@ def put(bid):
     a = p.get("author")
     if not t or not a:
         return jsonify(error="need title+author"),422
-    
     BOOKS[i] = {"id":bid, "title":t.strip(), "author":a.strip(),
                 "isbn":p.get("isbn"), "price":p.get("price")}
     return jsonify(BOOKS[i]),200
@@ -55,7 +50,6 @@ def put(bid):
 @app.patch("/books/<int:bid>")
 def patch(bid):
     i = next((k for k,b in enumerate(BOOKS) if b ["id"] == bid), None)
-
     if i is None:
         return jsonify(error= "not found"), 404
     p = request.get_json(silent=True) or {}
@@ -69,10 +63,8 @@ def patch(bid):
 @app.delete("/books/<int:bid>")
 def delete(bid):
     i = next((k for k,b in enumerate(BOOKS) if b["id"] == bid), None)
-
     if i is None:
         return jsonify(error= "not found"), 404
-    
     BOOKS.pop(i); return "", 204
 
 if __name__ == "__main__":
