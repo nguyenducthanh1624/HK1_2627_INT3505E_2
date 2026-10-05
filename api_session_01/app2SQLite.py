@@ -51,7 +51,7 @@ def create_books():
     resp.headers["Locations"] = f"/books/{cur.lastrowid}"
     return resp
 
-app.get("/books")
+@app.get("/books")
 def list_books():
     try:
         page = int(request.args.get("page", 1))
