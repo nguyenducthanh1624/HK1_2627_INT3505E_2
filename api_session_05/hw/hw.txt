@@ -1,0 +1,23 @@
+Resource set:
+/borrowers: chứa họ tên, mã thẻ, số điện thoại
+/books: lưu mã sách, tiêu đề, thể loại
+/categories: phân loại sách
+/authors: chứa thông tin về tác giả
+
+Endpoints:
+
+GET /api/v1/borrowers
+POST /api/v1/borrowers
+GET /api/v1/borrowers/{cardNumber}
+
+GET /api/v1/books
+POST /api/v1/books
+GET /api/v1/books/{bookId}
+GET /api/v1/books/{bookId}/copies
+GET /api/v1/copies/{copyId}
+
+GET /api/v1/categories
+GET /api/v1/categories/{categoryId}/books
+
+GET /api/v1/authors
+GET /api/v1/books/{bookId}/authors
