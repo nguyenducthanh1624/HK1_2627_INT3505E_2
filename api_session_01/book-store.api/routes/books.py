@@ -21,14 +21,13 @@ def parse_sort(raw):
 
 def _enc(s):
     return base64.urlsafe_b64encode(
-    json.dumps(s).encode()
+        json.dumps(s).encode()
     ).decode().rstrip("=")
 def apply_cursor(q, raw, sort, p, desc):
     if not raw:
         return q, None, 200
     pad = "=" * (-len(raw) % 4)
-    c = json.loads(
-    base64.urlsafe_b64decode(raw + pad))
+    c = json.loads(base64.urlsafe_b64decode(raw + pad))
     if c.get("s") != sort:
         return None, "sort_chg", 400
     v, i = c["v"], c["i"]
@@ -41,11 +40,12 @@ def build_response(items, lim, sort, p, more):
     nxt = None
     if items and more:
         last = items[-1]
-    nxt = _enc({
-        "s": sort,
-        "v": getattr(last, p.key),
-        "i": last.id
-    })
+        nxt = _enc({
+            "s": sort,
+            "v": getattr(last, p.key),
+            "i": last.id
+        })
+
     return jsonify({
         "data": [b.to_dict() for b in items],
         "page": {"next": nxt, "more": more}
@@ -54,27 +54,37 @@ def build_response(items, lim, sort, p, more):
 
 @bp.get("/books")
 def list_books():
-    """o = request.args.get("offset", 0, type=int)
 
-    lim = min(request.args.get(
-        "limit", DEFAULT, type=int), MAX_)
+    strategy = request.args.get("strategy", "offset").lower()
 
-    total = db.session.scalar(
-        select(func.count(Book.id)))
+    if strategy not in ("offset", "cursor"):
+        return jsonify({
+            "error": "bad_strategy",
+            "allowed": ["offset", "cursor"]
+        }), 400
     
-    rows = db.session.scalars(
-        select(Book).order_by(Book.id)
-        .offset(o).limit(lim)
-    ).all()
+    if strategy == "offset":
+        o = request.args.get("offset", 0, type=int)
 
-    return jsonify({
-        "data": [b.to_dict() for b in rows],
-        "pagination": {
-        "offset": o, "limit": lim,
-        "total": total,
-        "has_next": o + lim < total
-        }
-    })"""
+        lim = min(request.args.get(
+            "limit", DEFAULT, type=int), MAX_)
+
+        total = db.session.scalar(
+            select(func.count(Book.id)))
+    
+        rows = db.session.scalars(
+            select(Book).order_by(Book.id)
+            .offset(o).limit(lim)
+        ).all()
+
+        return jsonify({
+            "data": [b.to_dict() for b in rows],
+            "pagination": {
+            "offset": o, "limit": lim,
+            "total": total,
+            "has_next": o + lim < total
+            }
+        })
 
     
     """limit = min(request.args.get(
