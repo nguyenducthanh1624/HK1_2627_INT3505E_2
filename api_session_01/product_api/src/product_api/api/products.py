@@ -21,6 +21,7 @@ def list_products():
         base.order_by(Product.id)
         .offset((page-1) * size).limit(size)
     ).scalars().all()
+    
     return jsonify({
         "items": [ProductOut().dump(p) for p in rows],
         "page": page, "size": size,

@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request, abort
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import selectinload
 from ..extensions import db
 from ..models import Product, OrderItem, Order
 from .errors import Conflict
@@ -54,3 +55,26 @@ def create_order():
         raise Conflict(message="Could not create order")
 
     return OrderOut().dump(order), 201
+
+@orders_bp.get("")
+def list_orders():
+    page = max(1, int(request.args.get("page", 1)))
+    size = min(100, max(1, 
+                        int(request.args.get("size", 200))))
+    stmt = (
+        db.select(Order)
+        .options(selectinload(Order.items))
+        .order_by(Order.id)
+        .offset((page-1) * size).limit(size)
+    )
+    orders = db.session.scalars(stmt).all()
+    total = db.session.scalar(
+        db.select(db.func.count()).select_from(Order)
+    )
+
+    return {
+        "items": OrderOut(many=True).dump(orders),
+        "page": page,
+        "size": size,
+        "total": total
+    }, 200
