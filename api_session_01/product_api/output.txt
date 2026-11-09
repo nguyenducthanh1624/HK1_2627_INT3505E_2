@@ -1,0 +1,226 @@
+Microsoft Windows [Version 10.0.19045.6466]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\thepo>curl.exe -i http://localhost:5000/products
+HTTP/1.1 404 NOT FOUND
+Server: gunicorn
+Date: Sun, 08 Nov 2026 15:24:03 GMT
+Connection: close
+Content-Type: text/html; charset=utf-8
+Content-Length: 207
+
+<!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+
+C:\Users\thepo>
+C:\Users\thepo>
+C:\Users\thepo>
+C:\Users\thepo>curl.exe -i http://localhost:5000/api/v1/products
+HTTP/1.1 500 INTERNAL SERVER ERROR
+Server: gunicorn
+Date: Sun, 08 Nov 2026 15:25:23 GMT
+Connection: close
+Content-Type: text/html; charset=utf-8
+Content-Length: 265
+
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl.exe -i http://localhost:5000/api/v1/products
+HTTP/1.1 500 INTERNAL SERVER ERROR
+Server: gunicorn
+Date: Sun, 08 Nov 2026 15:35:12 GMT
+Connection: close
+Content-Type: text/html; charset=utf-8
+Content-Length: 265
+
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl.exe -i http://localhost:5000/api/v1/products
+HTTP/1.1 500 INTERNAL SERVER ERROR
+Server: gunicorn
+Date: Mon, 09 Nov 2026 07:26:44 GMT
+Connection: close
+Content-Type: text/html; charset=utf-8
+Content-Length: 265
+
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl.exe -i http://localhost:5000/api/v1/products
+HTTP/1.1 500 INTERNAL SERVER ERROR
+Server: gunicorn
+Date: Mon, 09 Nov 2026 07:27:36 GMT
+Connection: close
+Content-Type: text/html; charset=utf-8
+Content-Length: 265
+
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl.exe -i http://localhost:5000/api/v1/products
+HTTP/1.1 200 OK
+Server: gunicorn
+Date: Mon, 09 Nov 2026 07:28:51 GMT
+Connection: close
+Content-Type: application/json
+Content-Length: 43
+
+{"items":[],"page":1,"size":100,"total":0}
+
+C:\Users\thepo>curl.exe -i http://localhost/api/v1/products
+HTTP/1.1 200 OK
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 07:39:38 GMT
+Content-Type: application/json
+Content-Length: 43
+Connection: keep-alive
+
+{"items":[],"page":1,"size":100,"total":0}
+
+C:\Users\thepo>curl -X POST http://localhost/api/v1/products -H "Content-Type: application/json" -d "{\"sku\":\"PROD-001\",\"name\":\"Laptop\",\"description\":\"Dell Laptop\",\"price_cents\":150000,\"qty_in_stocks\":10}"
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl.exe -i http://localhost/api/v1/products
+HTTP/1.1 200 OK
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 07:44:35 GMT
+Content-Type: application/json
+Content-Length: 43
+Connection: keep-alive
+
+{"items":[],"page":1,"size":100,"total":0}
+
+C:\Users\thepo>curl -X POST http://localhost/api/v1/products -H "Content-Type: application/json" -d "{\"sku\":\"PROD-001\",\"name\":\"Laptop\",\"qty_in_stock\":10}"
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl -X POST http://localhost/api/v1/products -H "Content-Type: application/json" -d "{\"sku\":\"PROD-001\",\"name\":\"Laptop\",\"qty_in_stock\":10}"
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl -X POST http://localhost/api/v1/products -H "Content-Type: application/json" -d "{\"sku\":\"PROD-001\",\"name\":\"Laptop\",\"qty_in_stock\":10}"
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl -X POST http://localhost/api/v1/products -H "Content-Type: application/json" -d "{\"sku\":\"PROD-001\",\"name\":\"Laptop\",\"qty_in_stock\":10}"
+{"archived":false,"id":2,"name":"Laptop","price_cents":0,"qty_in_stock":10,"sku":"PROD-001"}
+
+C:\Users\thepo>curl -i http://localhost/api/v1/products/1
+HTTP/1.1 404 NOT FOUND
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 08:08:31 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 207
+Connection: keep-alive
+
+<!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+
+C:\Users\thepo>curl -i -X POST http://localhost/api/v1/products -H "Content-Type: application/json" -d "{\"sku\":\"PROD-002\",\"name\":\"Keyboard\",\"qty_in_stock\":15}"
+HTTP/1.1 201 CREATED
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 09:46:05 GMT
+Content-Type: application/json
+Content-Length: 95
+Connection: keep-alive
+
+{"archived":false,"id":3,"name":"Keyboard","price_cents":0,"qty_in_stock":15,"sku":"PROD-002"}
+
+C:\Users\thepo>curl -i -X POST http://localhost/api/v1/products -H "Content-Type: application/json" -d "{\"sku\":\"PROD-003\",\"name\":\"Mouse\",\"qty_in_stock\":25}"
+HTTP/1.1 201 CREATED
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 09:46:22 GMT
+Content-Type: application/json
+Content-Length: 92
+Connection: keep-alive
+
+{"archived":false,"id":4,"name":"Mouse","price_cents":0,"qty_in_stock":25,"sku":"PROD-003"}
+
+C:\Users\thepo>curl -i -X POST http://localhost/api/v1/orders -H "Content-Type: application/json" -d "{\"status\":\"pending\",\"items\":[{\"product_id\":2,\"quantity\":2},{\"product_id\":3,\"quantity\":1},{\"product_id\":4,\"quantity\":3}]}"
+HTTP/1.1 201 CREATED
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 09:47:38 GMT
+Content-Type: application/json
+Content-Length: 188
+Connection: keep-alive
+
+{"id":1,"items":[{"id":1,"order_id":1,"product_id":2,"quantity":2},{"id":2,"order_id":1,"product_id":3,"quantity":1},{"id":3,"order_id":1,"product_id":4,"quantity":3}],"status":"pending"}
+
+C:\Users\thepo>curl.exe -i "http://localhost/api/v1/orders?page=1&size=10"
+HTTP/1.1 500 INTERNAL SERVER ERROR
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 12:49:22 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 265
+Connection: keep-alive
+
+<!doctype html>
+<html lang=en>
+<title>500 Internal Server Error</title>
+<h1>Internal Server Error</h1>
+<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>
+
+C:\Users\thepo>curl.exe -i "http://localhost/api/v1/orders?page=1&size=10"
+HTTP/1.1 200 OK
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 12:51:08 GMT
+Content-Type: application/json
+Content-Length: 229
+Connection: keep-alive
+
+{"items":[{"id":1,"items":[{"id":1,"order_id":1,"product_id":2,"quantity":2},{"id":2,"order_id":1,"product_id":3,"quantity":1},{"id":3,"order_id":1,"product_id":4,"quantity":3}],"status":"pending"}],"page":1,"size":10,"total":1}
+
+C:\Users\thepo>curl.exe -i http://localhost/healthz
+HTTP/1.1 200 OK
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 13:00:09 GMT
+Content-Type: application/json
+Content-Length: 16
+Connection: keep-alive
+
+{"status":"ok"}
+
+C:\Users\thepo>curl.exe -i http://localhost/ready
+HTTP/1.1 200 OK
+Server: nginx/1.30.6
+Date: Mon, 09 Nov 2026 13:00:57 GMT
+Content-Type: application/json
+Content-Length: 37
+Connection: keep-alive
+
+{"checks":{"db":"ok"},"status":"ok"}
+
+C:\Users\thepo>
