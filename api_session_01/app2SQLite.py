@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, jsonify, g
+from flask import Flask, request, make_response, jsonify
 import sqlite3
 app = Flask(__name__)
 BOOKS = []

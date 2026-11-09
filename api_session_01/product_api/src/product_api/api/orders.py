@@ -1,0 +1,56 @@
+from flask import Blueprint, jsonify, request, abort
+from sqlalchemy.exc import IntegrityError
+from ..extensions import db
+from ..models import Product, OrderItem, Order
+from .errors import Conflict
+from .schemas import *
+
+orders_bp = Blueprint(
+    "orders", __name__, url_prefix="/api/v1/orders"
+)
+
+@orders_bp.post("")
+def create_order():
+    body = OrderIn().load(request.json)
+    items_data = body.pop("items")
+
+    product_ids = {
+        item["product_id"] for item in items_data
+    }
+
+    products = db.session.scalars(
+        db.select(Product).where(
+            Product.id.in_(product_ids)
+        )
+    ).all()
+
+    products_by_id = {
+        product.id: product for product in products
+    }
+
+    missing_ids = product_ids - products_by_id.keys()
+
+    if missing_ids:
+        abort(
+            404,
+            description=f"Products not found: {sorted(missing_ids)}"
+        )
+
+    order = Order(**body)
+
+    for item_data in items_data:
+        order_item = OrderItem(
+            product=products_by_id[item_data["product_id"]],
+            quantity=item_data["quantity"]
+        )
+        order.items.append(order_item)
+
+    db.session.add(order)
+
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        raise Conflict(message="Could not create order")
+
+    return OrderOut().dump(order), 201

@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "product-api"
+version = "0.1.0"
+description = "Flask Product API"
+requires-python = ">=3.12"
+
+dependencies = [
+    # Flask framework
+    "Flask>=3.0",
+
+    # Database
+    "Flask-SQLAlchemy>=3.1",
+    "Flask-Migrate>=4.0",
+    "SQLAlchemy>=2.0",
+
+    # API and validation
+    "flask-smorest>=0.44",
+    "marshmallow>=3.20",
+    "webargs",
+
+    # Werkzeug exceptions
+    "Werkzeug>=3.0",
+
+    # Environment variables (.env support)
+    "python-dotenv>=1.0",
+
+    # Production WSGI server
+    "gunicorn>=22.0",
+
+    "psycopg[binary]>=3.2"
+]
+
+
+# Tell setuptools that the source code is inside src/
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["product_api*"]

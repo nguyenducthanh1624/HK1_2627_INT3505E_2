@@ -1,0 +1,14 @@
+# gunicorn.conf.py
+bind = "0.0.0.0:5000"
+workers = 2 # điều chỉnh theo tải và giới hạn CPU
+worker_class = "sync" # hoặc "gthread"
+timeout = 60 # worker timeout
+graceful_timeout = 30
+keepalive = 5 # sync worker không dùng keepalive
+preload_app = False # cân nhắc khi khởi tạo kết nối
+accesslog = "-"
+errorlog = "-"
+loglevel = "info"
+proc_name = "product-api"
+
+control_socket_disable = True
