@@ -35,6 +35,12 @@ dependencies = [
     "psycopg[binary]>=3.2"
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0"
+    
+]
+
 
 # Tell setuptools that the source code is inside src/
 [tool.setuptools]
