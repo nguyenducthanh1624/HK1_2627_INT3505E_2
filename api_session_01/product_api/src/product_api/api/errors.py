@@ -20,7 +20,7 @@ class OutOfStock(ApiError):
     status_code = "409"
     code = "out_of_stock"
 
-def register_error_handler(app):
+def register_error_handlers(app):
     @app.errorhandler(ApiError)
     def _on_api(err):
         return jsonify({
