@@ -1,0 +1,5 @@
+$kind: http-request
+name: POST /books - no title
+url: ""
+method: GET
+order: 1000

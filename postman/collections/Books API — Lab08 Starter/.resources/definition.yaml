@@ -1,0 +1,4 @@
+$kind: collection
+description: "Lab 3: add error-cases/ folder with POST missing title and GET missing id. Collection currently contains happy paths only."
+variables:
+  book_id: ""

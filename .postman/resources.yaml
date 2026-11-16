@@ -1,0 +1,18 @@
+# Use this workspace to collaborate
+workspace:
+  id: 4be8423f-e274-4dc7-81e5-33ee1bccfc18
+
+localResources:
+  collections:
+    - ../bai 8/lab08-starter-main/books-api.postman_collection.json
+    - ../bai 8/lab08-starter-main/postman/books-api.postman_collection.json
+  environments:
+    - ../bai 8/lab08-starter-main/postman/local.postman_environment.json
+  specs:
+    - ../api_session_01/products.yaml
+    - ../api_session_06/openapi.yaml
+    - ../bai 8/lab08-starter-main/openapi.yaml
+
+cloudResources:
+  collections:
+    ../postman/collections/Books API — Lab08 Starter: 72c28891-df3a-480c-bb73-636b96afe280

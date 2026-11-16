@@ -1,0 +1,11 @@
+$kind: http-request
+name: DELETE /books/{id} — delete
+url: "{{base_url}}/books/{{book_id}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("204 No Content", () => pm.response.to.have.status(204));
+      pm.test("empty body", () => pm.expect(pm.response.text()).to.eql(""));
+    language: text/javascript
+order: 5000
