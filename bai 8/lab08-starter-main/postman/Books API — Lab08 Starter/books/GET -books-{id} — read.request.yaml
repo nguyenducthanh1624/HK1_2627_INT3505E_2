@@ -1,0 +1,11 @@
+$kind: http-request
+name: GET /books/{id} — read
+url: "{{base_url}}/books/{{book_id}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("200 OK", () => pm.response.to.have.status(200));
+      pm.test("expected fields", () => pm.expect(pm.response.json()).to.have.all.keys("id", "title", "author", "year", "isbn"));
+    language: text/javascript
+order: 3000

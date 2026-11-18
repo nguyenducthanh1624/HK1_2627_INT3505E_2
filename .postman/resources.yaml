@@ -4,14 +4,17 @@ workspace:
 
 localResources:
   collections:
-    - ../bai 8/lab08-starter-main/books-api.postman_collection.json
-    - ../bai 8/lab08-starter-main/postman/books-api.postman_collection.json
+    - ../bai 8/lab08-starter-main/Books API — Lab08 Starter
+    - ../bai 8/lab08-starter-main/postman/Books API — Lab08 Starter
   environments:
     - ../bai 8/lab08-starter-main/postman/local.postman_environment.json
+    - ../bai 8/lab08-starter-main/postman/Lab08 Local.environment.yaml
   specs:
     - ../api_session_01/products.yaml
     - ../api_session_06/openapi.yaml
     - ../bai 8/lab08-starter-main/openapi.yaml
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
 
 cloudResources:
   collections:

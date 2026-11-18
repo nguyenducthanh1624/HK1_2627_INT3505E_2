@@ -1,0 +1,17 @@
+$kind: http-request
+name: POST /books — create
+url: "{{base_url}}/books"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: '{"title": "DDIA", "author": "Kleppmann", "year": 2017}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("201 Created", () => pm.response.to.have.status(201));
+      pm.test("positive id", () => pm.expect(pm.response.json().id).to.be.above(0));
+      if (pm.response.code === 201) pm.collectionVariables.set("book_id", pm.response.json().id);
+    language: text/javascript
+order: 2000
