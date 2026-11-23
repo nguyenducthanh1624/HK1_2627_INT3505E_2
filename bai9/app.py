@@ -1,9 +1,21 @@
 from functools import wraps
 from flask import Flask, jsonify, request
+from datetime import datetime, timezone
+from sunset import deprecate_at
+
 LATEST = "2"
 SUPPORTED = {"1", "2", "2024-06-20"}
 USERS = {1: {"f": "Văn", "l": "Nguyễn", "e": "a@vnu.vn"}}
 app = Flask(__name__)
+
+V1_SUNSET = datetime(2026, 12, 31, 23, 59, 59,
+ tzinfo=timezone.utc)
+
+@app.route("/api/v1/users/<int:uid>")
+@deprecate_at(V1_SUNSET, replacement="/api/v2/users")
+def get_v1(uid):
+    return {"id": uid, "full_name": "Nguyễn Văn A"}
+
 def api_version(supported=SUPPORTED, default=LATEST):
     def decorate(fn):
         @wraps(fn)
@@ -26,3 +38,6 @@ def get_user(version, uid):
         return {"id": uid, "full_name": u["f"] + " " + u["l"]}
     return {"id": uid, "first_name": u["f"],
         "last_name": u["l"], "email": u["e"]}
+
+if __name__ == "__main__":
+    app.run(debug=True)
